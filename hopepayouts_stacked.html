@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <title>HOPE: What Students Pay</title>
-<base target="_parent" />
+<base target="_parent"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="http://host.coxmediagroup.com/ajc/digitalprojects/global/css/iFrame_Medley.css" type="text/css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -20,156 +20,134 @@
 		<option value="perimeter">Georgia Perimeter College</option>
 	</select>
 	<div id="placeholder" style="width:750px;height:300px;margin:auto;"></div>
-	<script type="text/javascript">
+<script type="text/javascript">
 	$("select").prop("selectedIndex", 1);
 	$(function () {
 		var label1 = "Tuition and fees", label2 = "Hope payment", label3 = "What student owes";
-
-	var uga = [
-		{"label": label2, "data": [[1, 3970.0], [2, 3182.0], [3, 3182.0], [4, 3277.0], [5, 3277.0], [6, 3277.0], [7, 3277.0], [8, 3277.0]], stack: true}, 
-		{"label": label3, "data": [[1, 398.0], [2, 1555.0], [3, 1740.0], [4, 1854.0], [5, 2055.0], [6, 2266.0], [7, 2487.0], [8, 2719.0]], stack: true},
-		//{"label": label1, "data": [[1, 4368.0], [2, 4736.0], [3, 4921.0], [4, 5131.0], [5, 5332.0], [6, 5542.0], [7, 5764.0], [8, 5996.0]], stack: null, fill: false}
-	]
-	var tech = [
-		{"label": label2, "data": [[1, 3969.0], [2, 3182.0], [3, 3182.0], [4, 3277.0], [5, 3277.0], [6, 3277.0], [7, 3277.0], [8, 3277.0]], stack: true}, 
-		{"label": label3, "data": [[1, 389.0], [2, 1644.0], [3, 1867.0], [4, 2048.0], [5, 2316.0], [6, 2602.0], [7, 2907.0], [8, 3231.0]], stack: true},
-		//{"label": label1, "data": [[1, 4358.0], [2, 4826.0], [3, 5049.0], [4, 5325.0], [5, 5593.0], [6, 5879.0], [7, 6184.0], [8, 6508.0]], stack: null, fill: false}
-	]
-	var state = [
-		{"label": label1, "data": [[1, 4349.0], [2, 4705.0], [3, 4832.0], [4, 4964.0], [5, 5101.0], [6, 5242.0], [7, 5388.0], [8, 5539.0]]},
-		{"label": label2, "data": [[1, 3891.0], [2, 3182.0], [3, 3182.0], [4, 3279.0], [5, 3279.0], [6, 3279.0], [7, 3279.0], [8, 3279.0]]},
-		//{"label": label3, "data": [[1, 458.0], [2, 1524.0], [3, 1651.0], [4, 1685.0], [5, 1822.0], [6, 1963.0], [7, 2109.0], [8, 2260.0]]}
-	]
-	var southern = [
-		{"label": label1, "data": [[1, 3120.0], [2, 3303.0], [3, 3362.0], [4, 3533.0], [5, 3595.0], [6, 3659.0], [7, 3724.0], [8, 3791.0]]},
-		{"label": label2, "data": [[1, 2648.0], [2, 2068.0], [3, 2068.0], [4, 2130.0], [5, 2130.0], [6, 2130.0], [7, 2130.0], [8, 2130.0]]},
-		//{"label": label3, "data": [[1, 472.0], [2, 1235.0], [3, 1294.0], [4, 1403.0], [5, 1465.0], [6, 1529.0], [7, 1594.0], [8, 1661.0]]}
-	]
-	var perimeter = [
-		{"label": label1, "data": [[1, 1554.0], [2, 1710.0], [3, 1751.0], [4, 1807.0], [5, 1839.0], [6, 1873.0], [7, 1907.0], [8, 1942.0]]},
-		{"label": label2, "data": [[1, 1321.0], [2, 1079.0], [3, 1079.0], [4, 1111.0], [5, 1111.0], [6, 1111.0], [7, 1111.0], [8, 1111.0]]},
-		//{"label": label3, "data": [[1, 233.0], [2, 631.0], [3, 672.0], [4, 696.0], [5, 728.0], [6, 761.0], [7, 795.0], [8, 830.0]]}
-	]
-//	var plot = $.plot($("#placeholder"), [{data: uga1, label: "Tuition and fees"}, {data:uga2, label: "Hope payment"}, {data:uga3, label: "Student owes"}], {
-			
-	//	colors: ["#E8B72F","#BE353B","#A0CEF6"]			
-//	});
-	var data = [];
-	var placeholder = $("#placeholder");
-	var options = {
-		series: {
-			lines: { show: true, fill: true},
-			stack: true,
-			points: { show: false, radius:2 }
-		},
-		grid: { hoverable: true, clickable: true },
-		xaxis: {
-			min: 1,
-			max: 8,
-		//	axisLabel:'Month', 
-			axisLabelUseCanvas:false,
-			axisLabelPadding:15,
-		ticks: [[1, '2011'], [2, '2012'], [3, '2013'], [4, '2014'],[5, '2015'], [6, '2016'], [7, '2017'], [8, '2018']]
-			//tickDecimals: 0
-		},
-		yaxis: { 
-			min: null, 
-			max: null, 
-			//axisLabel:'Unemployment rate', 
-			axisLabelUseCanvas:false,
-			axisLabelPadding:10,
-			tickFormatter: function(label, series) {
-			    // series is the series object for the label
-			   // return '$'+formatLabel(label);
-			return "$"+label;
-			  }
-		},
-		legend: {
-	    	position: "se"
-	  	}
-	}
-	//$.plot(placeholder, data, options);
-drawChart("tech");
-	$('select').change(function(){
-	/*	if(this.value === "tech"){
-			data = tech
+		var uga = [
+			{"label": label2, "data": [[1, 3970.0], [2, 3182.0], [3, 3182.0], [4, 3277.0], [5, 3277.0], [6, 3277.0], [7, 3277.0], [8, 3277.0]], stack: true}, 
+			{"label": label3, "data": [[1, 398.0], [2, 1555.0], [3, 1740.0], [4, 1854.0], [5, 2055.0], [6, 2266.0], [7, 2487.0], [8, 2719.0]], stack: true},
+		];
+		var tech = [
+			{"label": label2, "data": [[1, 3969.0], [2, 3182.0], [3, 3182.0], [4, 3277.0], [5, 3277.0], [6, 3277.0], [7, 3277.0], [8, 3277.0]], stack: true}, 
+			{"label": label3, "data": [[1, 389.0], [2, 1644.0], [3, 1867.0], [4, 2048.0], [5, 2316.0], [6, 2602.0], [7, 2907.0], [8, 3231.0]], stack: true},
+		];
+		var state = [
+			{"label": label1, "data": [[1, 4349.0], [2, 4705.0], [3, 4832.0], [4, 4964.0], [5, 5101.0], [6, 5242.0], [7, 5388.0], [8, 5539.0]]},
+			{"label": label2, "data": [[1, 3891.0], [2, 3182.0], [3, 3182.0], [4, 3279.0], [5, 3279.0], [6, 3279.0], [7, 3279.0], [8, 3279.0]]},
+		];
+		var southern = [
+			{"label": label1, "data": [[1, 3120.0], [2, 3303.0], [3, 3362.0], [4, 3533.0], [5, 3595.0], [6, 3659.0], [7, 3724.0], [8, 3791.0]]},
+			{"label": label2, "data": [[1, 2648.0], [2, 2068.0], [3, 2068.0], [4, 2130.0], [5, 2130.0], [6, 2130.0], [7, 2130.0], [8, 2130.0]]},
+		];
+		var perimeter = [
+			{"label": label1, "data": [[1, 1554.0], [2, 1710.0], [3, 1751.0], [4, 1807.0], [5, 1839.0], [6, 1873.0], [7, 1907.0], [8, 1942.0]]},
+			{"label": label2, "data": [[1, 1321.0], [2, 1079.0], [3, 1079.0], [4, 1111.0], [5, 1111.0], [6, 1111.0], [7, 1111.0], [8, 1111.0]]},
+		];
+		/*var plot = $.plot($("#placeholder"), [{data: uga1, label: "Tuition and fees"}, {data:uga2, label: "Hope payment"}, {data:uga3, label: "Student owes"}], {
+			colors: ["#E8B72F","#BE353B","#A0CEF6"]
+		});*/
+		var data = [];
+		var placeholder = $("#placeholder");
+		var options = {
+			series: {
+				lines: { show: true, fill: true},
+				stack: true,
+				points: { show: false, radius:2 }
+			},
+			grid: { hoverable: true, clickable: true },
+			xaxis: {
+				min: 1,
+				max: 8,
+				//axisLabel:'Year', 
+				axisLabelUseCanvas:false,
+				axisLabelPadding:15,
+				ticks: [[1, '2011'], [2, '2012'], [3, '2013'], [4, '2014'],[5, '2015'], [6, '2016'], [7, '2017'], [8, '2018']]
+				//tickDecimals: 0
+			},
+			yaxis: { 
+				min: null, 
+				max: null, 
+				//axisLabel:'Dollars', 
+				axisLabelUseCanvas:false,
+				axisLabelPadding:10,
+				tickFormatter: function(label, series) {
+					//series is the series object for the label
+					//return '$'+formatLabel(label);
+					return "$"+label;
+				}
+			},
+			legend: {
+		    	position: "se"
+		  	}
 		}
-		//data = this.value;
-		$.plot(placeholder, data, options);*/
-		drawChart(this.value)
-	})
-	function drawChart(val){
-		if(val === "tech"){
-			data = tech;
-		}
-		else if(val === "uga"){
-			data = uga;
-		}
-		else if(val === "state"){
-			data = state;
-		}
-		else if(val === "southern"){
-			data = southern;
-		}
-		else if(val === "perimeter"){
-			data = perimeter;
-		}
-		/*if(data[0]){
-			options.yaxis.max = Math.max(data[0].data)
-			
-		}*/
-		
-		$.plot(placeholder, data, options);
-		
-	}
-	function showTooltip(x, y, contents) {
-		$('<div id="tooltip">' + contents + '</div>').css( {
-			position: 'absolute',
-			display: 'none',
-			top: y + 10,
-			left: x + 10,
-			border: '1px solid ##dfdfdf',
-			padding: '5px',
-			'background-color': '#e4e4e4',
-			opacity: 0.80
-		}).appendTo("body").fadeIn(200);
-	}
-	function formatLabel(x) {
-	    // series is the series object for the label
-		if(x>0){
-			x=Math.round(x)
-			if(x)
-			x= x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-		else{
-			x=0;
-		}
-	    return x;
-	  }
-
-	var previousPoint = null;
-	var previousSeries = null;
-	$("#placeholder").bind("plothover", function (event, pos, item) {
-		$("#x").text(pos.x.toFixed(2));
-		$("#y").text(pos.y.toFixed(2));
-		if (item) {						
-				if (previousPoint != item.dataIndex || previousSeries != item.seriesIndex) {				
-				previousPoint = item.dataIndex;
-				previousSeries = item.seriesIndex;//we're using this so we still load tooltips for a point's parter if it is on a different line
-				$("#tooltip").remove();
-				//var x = item.datapoint[0].toFixed(2),
-			//	y = item.datapoint[1].toFixed(2);//for forcing decimals I think
-				y = item.datapoint[1];
-				showTooltip(item.pageX, item.pageY, "$"+y);
+		//$.plot(placeholder, data, options);
+		drawChart("tech");
+		$('select').change(function(){
+			/*if(this.value === "tech"){
+				data = tech
 			}
+			$.plot(placeholder, data, options);*/
+			drawChart(this.value)
+		});
+		function drawChart(val){
+			if(val === "tech"){
+				data = tech;
+			} else if(val === "uga"){
+				data = uga;
+			} else if(val === "state"){
+				data = state;
+			} else if(val === "southern"){
+				data = southern;
+			} else if(val === "perimeter"){
+				data = perimeter;
+			}
+			$.plot(placeholder, data, options);
 		}
-		else {
-			$("#tooltip").remove();
-			previousPoint = null;            
-		}			
-	});
-		
-})
-	</script>
+		function showTooltip(x, y, contents) {
+			$('<div id="tooltip">' + contents + '</div>').css( {
+				position: 'absolute',
+				display: 'none',
+				top: y + 10,
+				left: x + 10,
+				border: '1px solid ##dfdfdf',
+				padding: '5px',
+				'background-color': '#e4e4e4',
+				opacity: 0.80
+			}).appendTo("body").fadeIn(200);
+		}
+		function formatLabel(x) { /*this isn't being used in this version*/
+		    // series is the series object for the label
+			if(x>0){
+				x=Math.round(x)
+				if(x)
+				x= x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			} else{
+				x=0;
+			}
+		    return x;
+		}
+		var previousPoint = null;
+		var previousSeries = null;
+		$("#placeholder").bind("plothover", function (event, pos, item) {
+			$("#x").text(pos.x.toFixed(2));
+			$("#y").text(pos.y.toFixed(2));
+			if (item) {
+				if (previousPoint != item.dataIndex || previousSeries != item.seriesIndex) {
+					previousPoint = item.dataIndex;
+					previousSeries = item.seriesIndex;//we're using this so we still load tooltips for a point's parter if it is on a different line
+					$("#tooltip").remove();
+					//var x = item.datapoint[0].toFixed(2),
+					//y = item.datapoint[1].toFixed(2);//for forcing decimals I think
+					y = item.datapoint[1];
+					showTooltip(item.pageX, item.pageY, "$"+y);
+				}
+			} else {
+				$("#tooltip").remove();
+				previousPoint = null;            
+			}
+		});//placeholder.bind
+	});//function()
+</script>
 </body>
 </html>
