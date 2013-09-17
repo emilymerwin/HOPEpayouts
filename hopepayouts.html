@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>HOPE: What Students Pay</title>
+<base target="_parent" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" href="http://host.coxmediagroup.com/ajc/digitalprojects/global/css/iFrame_Medley.css" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="http://alt.coxnewsweb.com/ajc/_projects_and_planning_group/libraries/flot/jquery.flot.axislabels2.0.js"></script>
+</head>
+<body>
+	<select style="margin:10px;">
+		<option value="uga">University of Georgia</option>
+		<option value="tech">Georgia Institute of Technology</option>
+		<option value="state">Georgia State University</option>
+		<option value="southern">Georgia Southern University</option>
+		<option value="perimeter">Georgia Perimeter College</option>
+	</select>
+	<div id="placeholder" style="width:750px;height:300px;margin:auto;"></div>
+	<script type="text/javascript">
+	$("select").prop("selectedIndex", 1);
+	$(function () {
+		var label1 = "Tuition and fees", label2 = "Hope payment", label3 = "What student owes";
+
+	var uga = [
+		{"label": label1, "data": [[01, 4368.0], [02, 4736.0], [03, 4921.0], [04, 5131.0], [05, 5332.0], [06, 5542.0], [07, 5764.0], [08, 5996.0]]}, 
+		{"label": label2, "data": [[01, 3970.0], [02, 3182.0], [03, 3182.0], [04, 3277.0], [05, 3277.0], [06, 3277.0], [07, 3277.0], [08, 3277.0]]}, 
+		{"label": label3, "data": [[01, 398.0], [02, 1555.0], [03, 1740.0], [04, 1854.0], [05, 2055.0], [06, 2266.0], [07, 2487.0], [08, 2719.0]]}
+	]
+	var tech = [
+		{"label": label1, "data": [[01, 4358.0], [02, 4826.0], [03, 5049.0], [04, 5325.0], [05, 5593.0], [06, 5879.0], [07, 6184.0], [08, 6508.0]]}, 
+		{"label": label2, "data": [[01, 3969.0], [02, 3182.0], [03, 3182.0], [04, 3277.0], [05, 3277.0], [06, 3277.0], [07, 3277.0], [08, 3277.0]]}, 
+		{"label": label3, "data": [[01, 389.0], [02, 1644.0], [03, 1867.0], [04, 2048.0], [05, 2316.0], [06, 2602.0], [07, 2907.0], [08, 3231.0]]}
+	]
+	var state = [
+		{"label": label1, "data": [[01, 4349.0], [02, 4705.0], [03, 4832.0], [04, 4964.0], [05, 5101.0], [06, 5242.0], [07, 5388.0], [08, 5539.0]]},
+		{"label": label2, "data": [[01, 3891.0], [02, 3182.0], [03, 3182.0], [04, 3279.0], [05, 3279.0], [06, 3279.0], [07, 3279.0], [08, 3279.0]]},
+		{"label": label3, "data": [[01, 458.0], [02, 1524.0], [03, 1651.0], [04, 1685.0], [05, 1822.0], [06, 1963.0], [07, 2109.0], [08, 2260.0]]}
+	]
+	var southern = [
+		{"label": label1, "data": [[01, 3120.0], [02, 3303.0], [03, 3362.0], [04, 3533.0], [05, 3595.0], [06, 3659.0], [07, 3724.0], [08, 3791.0]]},
+		{"label": label2, "data": [[01, 2648.0], [02, 2068.0], [03, 2068.0], [04, 2130.0], [05, 2130.0], [06, 2130.0], [07, 2130.0], [08, 2130.0]]},
+		{"label": label3, "data": [[01, 472.0], [02, 1235.0], [03, 1294.0], [04, 1403.0], [05, 1465.0], [06, 1529.0], [07, 1594.0], [08, 1661.0]]}
+	]
+	var perimeter = [
+		{"label": label1, "data": [[01, 1554.0], [02, 1710.0], [03, 1751.0], [04, 1807.0], [05, 1839.0], [06, 1873.0], [07, 1907.0], [08, 1942.0]]},
+		{"label": label2, "data": [[01, 1321.0], [02, 1079.0], [03, 1079.0], [04, 1111.0], [05, 1111.0], [06, 1111.0], [07, 1111.0], [08, 1111.0]]},
+		{"label": label3, "data": [[01, 233.0], [02, 631.0], [03, 672.0], [04, 696.0], [05, 728.0], [06, 761.0], [07, 795.0], [08, 830.0]]}
+	]
+//	var plot = $.plot($("#placeholder"), [{data: uga1, label: "Tuition and fees"}, {data:uga2, label: "Hope payment"}, {data:uga3, label: "Student owes"}], {
+			
+	//	colors: ["#E8B72F","#BE353B","#A0CEF6"]			
+//	});
+	var data = [];
+	var placeholder = $("#placeholder");
+	var options = {
+		series: {
+			lines: { show: true },
+			points: { show: true, radius:2 }
+		},
+		grid: { hoverable: true, clickable: true },
+		xaxis: {
+			min: 01,
+			max: 08,
+		//	axisLabel:'Month', 
+			axisLabelUseCanvas:false,
+			axisLabelPadding:15,
+		ticks: [[01, '2011'], [02, '2012'], [03, '2013'], [04, '2014'],[05, '2015'], [06, '2016'], [07, '2017'], [08, '2018']]
+			//tickDecimals: 0
+		},
+		yaxis: { 
+			min: null, 
+			max: null, 
+			//axisLabel:'Unemployment rate', 
+			axisLabelUseCanvas:false,
+			axisLabelPadding:10,
+			tickFormatter: function(label, series) {
+			    // series is the series object for the label
+			   // return '$'+formatLabel(label);
+			return "$"+label;
+			  }
+		},
+		legend: {
+	    	position: "se"
+	  	}
+	}
+	//$.plot(placeholder, data, options);
+drawChart("tech");
+	$('select').change(function(){
+	/*	if(this.value === "tech"){
+			data = tech
+		}
+		//data = this.value;
+		$.plot(placeholder, data, options);*/
+		drawChart(this.value)
+	})
+	function drawChart(val){
+		if(val === "tech"){
+			data = tech;
+		}
+		else if(val === "uga"){
+			data = uga;
+		}
+		else if(val === "state"){
+			data = state;
+		}
+		else if(val === "southern"){
+			data = southern;
+		}
+		else if(val === "perimeter"){
+			data = perimeter;
+		}
+		/*if(data[0]){
+			console.log("data: "+data+"data[0]: "+Math.max(+data[0].data));
+			options.yaxis.max = Math.max(data[0].data)
+			
+		}*/
+		
+		$.plot(placeholder, data, options);
+		
+	}
+	function showTooltip(x, y, contents) {
+		$('<div id="tooltip">' + contents + '</div>').css( {
+			position: 'absolute',
+			display: 'none',
+			top: y + 10,
+			left: x + 10,
+			border: '1px solid ##dfdfdf',
+			padding: '5px',
+			'background-color': '#e4e4e4',
+			opacity: 0.80
+		}).appendTo("body").fadeIn(200);
+	}
+	function formatLabel(x) {
+	    // series is the series object for the label
+		if(x>0){
+			x=Math.round(x)
+			if(x)
+			x= x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		else{
+			x=0;
+		}
+	    return x;
+	  }
+
+	var previousPoint = null;
+	var previousSeries = null;
+	$("#placeholder").bind("plothover", function (event, pos, item) {
+		$("#x").text(pos.x.toFixed(2));
+		$("#y").text(pos.y.toFixed(2));
+		if (item) {						
+				if (previousPoint != item.dataIndex || previousSeries != item.seriesIndex) {				
+				previousPoint = item.dataIndex;
+				previousSeries = item.seriesIndex;//we're using this so we still load tooltips for a point's parter if it is on a different line
+				$("#tooltip").remove();
+				//var x = item.datapoint[0].toFixed(2),
+			//	y = item.datapoint[1].toFixed(2);//for forcing decimals I think
+				y = item.datapoint[1];
+				showTooltip(item.pageX, item.pageY, "$"+y);
+			}
+		}
+		else {
+			$("#tooltip").remove();
+			previousPoint = null;            
+		}			
+	});
+		
+})
+	</script>
+</body>
+</html>
