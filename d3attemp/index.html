@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+var margin = {top: 20, right: 80, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%Y%m%d").parse;
+
+//var x = d3.time.scale()
+var x = d3.scale.linear()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) { return x(d.year); })
+    .y(function(d) { return y(d.dolla); });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("CSVtoJSONwithParsing_categories.json", function(error, data) {
+	data2 = data[0].school
+	//var temp = data[0].school.lines;
+//	console.log(temp)
+	//color.domain(d3.keys(data[0].school.filter(function(key){console.log(key); return key}))/*.filter(function(key) {console.log(key); return key !== "date"; })*/);
+		color.domain(["hopepays", "tuitionfees", "studentowes"])
+//console.log(data[0].school.lines)
+//	})
+	data2.forEach(function(d, i) {
+		console.log("i : "+i+"   d: "+d.school);
+    d.year = 2011+i
+  });
+	var schools = color.domain().map(function(name) {
+	    return {
+		//console.log(data)
+	      name: name,
+	      values: data2.map(function(d, i) {
+	       // console.log("log: "+d.school);return {year: i+2011, dolla: parseFloat(d.school[0].lines[name])};
+			console.log(i); return {year: i+2011, dolla: parseFloat(d.lines[name])};
+	      })
+	    };
+	  });
+	//var schools = 
+	x.domain([2011, 2018])
+	  y.domain([
+	    //d3.min(data, function(c) {console.log(c.school[0]); return d3.min(c.school[0].lines.tuitionfees, function(v, p) { return v; }); }),
+	d3.min(data, function(c) {console.log(c.school[0]); return d3.min(c.school[0].lines.studentowes, function(v) { return v; }); }),
+	    d3.max(data, function(c) { return d3.max(c.school[0].lines.tuitionfees, function(v) { return v; }); })
+	  ]);
+	
+	 svg.append("g")
+	     .attr("class", "x axis")
+	     .attr("transform", "translate(0," + height + ")")
+	     .call(xAxis.tickFormat(function(d){return d}));
+
+	 svg.append("g")
+	     .attr("class", "y axis")
+	     .call(yAxis.tickFormat(function(d) { return "$" + d; }))
+	   .append("text")
+	     .attr("transform", "rotate(-90)")
+	     .attr("y", 6)
+	     .attr("dy", ".71em")
+	     .style("text-anchor", "end")
+	     //.text("dollars");
+	//yAxis
+	var school = svg.selectAll(".school")
+	      .data(schools)
+	    .enter().append("g")
+	      .attr("class", "school");
+
+	  school.append("path")
+	      .attr("class", "line")
+	      .attr("d", function(d) {console.log(d.values); return line(d.values); })
+	      .style("stroke", function(d) {console.log(color(d.name)); return color(d.name); });
+})//d3.json
+/*d3.tsv("data.tsv", function(error, data) {
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+  });
+
+  var cities = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {date: d.date, temperature: +d[name]};
+      })
+    };
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+
+  y.domain([
+    d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+    d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+  ]);
+
+
+
+  var city = svg.selectAll(".city")
+      .data(cities)
+    .enter().append("g")
+      .attr("class", "city");
+
+  city.append("path")
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .style("stroke", function(d) { return color(d.name); });
+
+  city.append("text")
+      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+      .attr("x", 3)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.name; });
+});*/
+
+</script>
